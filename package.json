@@ -1,0 +1,13 @@
+{
+  "name": "todo-list",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev:web": "pnpm -C packages/web run start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
