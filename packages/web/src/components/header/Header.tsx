@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+const StyledHeader = styled.div`
   font-size: 22px;
   width: 100%;
   text-align: center;
@@ -9,11 +9,7 @@ const Wrapper = styled.div`
 `;
 
 const Header = () => {
-  return (
-    <>
-      <Wrapper>Todo List</Wrapper>
-    </>
-  );
+  return <StyledHeader>Todo List</StyledHeader>;
 };
 
 export default Header;
