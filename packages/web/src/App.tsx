@@ -8,10 +8,6 @@ const StyledApp = styled.div`
   background-color: #282c34;
   color: #fff;
   margin: 0;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   display: flex;
   flex-direction: column;
   align-items: center;
