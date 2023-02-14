@@ -2,6 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import ListItem, { ListItemProps } from "../list-item/ListItem";
 import ListItemDetail from "../list-item/ListItemDetail";
+import Pagination from "../pagination/Pagination";
 import Popup from "../popup/Popup";
 
 const StyledBoard = styled.div`
@@ -14,6 +15,9 @@ const Board = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [currentItemId, setCurrentItemId] = useState(0);
   const [checkedItems, setCheckedItems] = useState([1, 3]);
+  const [total, setTotal] = useState(999);
+  const [pageSize, setPageSize] = useState(10);
+  const [curPage, setCurPage] = useState(2);
   const list: ListItemProps[] = [
     {
       id: 0,
@@ -68,6 +72,16 @@ const Board = () => {
     setIsPopupVisible(false);
   };
 
+  const handlePagePrev = (curPage: number, pageSize: number) => {
+    setCurPage(curPage);
+    setPageSize(pageSize);
+  };
+
+  const handlePageNext = (curPage: number, pageSize: number) => {
+    setCurPage(curPage);
+    setPageSize(pageSize);
+  };
+
   return (
     <StyledBoard>
       {list.map((item) => {
@@ -81,6 +95,14 @@ const Board = () => {
           />
         );
       })}
+      <Pagination
+        total={total}
+        pageSize={pageSize}
+        curPage={curPage}
+        onPrev={handlePagePrev}
+        onNext={handlePageNext}
+        style={{ marginTop: "30px" }}
+      ></Pagination>
       {isPopupVisible && (
         <Popup>
           <ListItemDetail
