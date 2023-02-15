@@ -8,7 +8,6 @@ import Popup from "../popup/Popup";
 const StyledBoard = styled.div`
   margin-top: 20px;
   width: 50%;
-  height: 100%;
 `;
 
 const Board = () => {
@@ -47,6 +46,76 @@ const Board = () => {
       total: 342,
       status: 1,
     },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 5,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
+    {
+      id: 3,
+      index: 4,
+      title: "demo13",
+      total: 342,
+      status: 1,
+    },
   ];
   const itemDetail = {
     title: "do homework",
@@ -55,13 +124,16 @@ const Board = () => {
   };
 
   const handleListItemClick = (id: number) => {
+    setCurrentItemId(id);
+    setIsPopupVisible(true);
+  };
+
+  const handleListItemDotClick = (id: number) => {
     if (checkedItems.some((item) => item === id)) {
       setCheckedItems(checkedItems.filter((item) => item !== id));
     } else {
       setCheckedItems([...checkedItems, id]);
     }
-    setCurrentItemId(id);
-    setIsPopupVisible(true);
   };
 
   const handleCancel = () => {
@@ -91,6 +163,7 @@ const Board = () => {
             isActive={currentItemId === item.id}
             isChecked={checkedItems.some((i) => i === item.id)}
             onListItemClick={handleListItemClick}
+            onListItemDotClick={handleListItemDotClick}
             key={item.id}
           />
         );

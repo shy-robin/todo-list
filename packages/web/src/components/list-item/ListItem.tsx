@@ -13,7 +13,7 @@ const StyledListItem = styled.div`
 
 const itemColor: { [ItemStatus.TODO]: string; [ItemStatus.DONE]: string } = {
   [ItemStatus.DONE]: "rgba(255, 255, 255, 0.25)",
-  [ItemStatus.TODO]: "rgba(255, 255, 255, 1)",
+  [ItemStatus.TODO]: "rgba(255, 255, 255, 0.8)",
 };
 
 const StyledListItemContent = styled.div<{
@@ -44,6 +44,9 @@ const CheckBox = styled.div<{ status: ItemStatus }>`
   border-radius: 50%;
   margin-right: 10px;
   position: relative;
+  &:hover {
+    border-color: rgba(255, 255, 255, 1);
+  }
 `;
 
 const CheckBoxDot = styled.div<{ status: ItemStatus }>`
@@ -72,6 +75,7 @@ export interface ListItemProps {
   isActive?: boolean;
   isChecked?: boolean;
   onListItemClick?: (id: number) => void;
+  onListItemDotClick?: (id: number) => void;
 }
 const ListItem = (props: ListItemProps) => {
   const {
@@ -83,6 +87,7 @@ const ListItem = (props: ListItemProps) => {
     isActive = false,
     isChecked = false,
     onListItemClick = () => {},
+    onListItemDotClick = () => {},
   } = props;
   return (
     <StyledListItem>
@@ -91,7 +96,13 @@ const ListItem = (props: ListItemProps) => {
         status={status}
         onClick={() => onListItemClick(id)}
       >
-        <CheckBox status={status}>
+        <CheckBox
+          status={status}
+          onClick={(e) => {
+            e.stopPropagation();
+            onListItemDotClick(id);
+          }}
+        >
           {isChecked && <CheckBoxDot status={status} />}
         </CheckBox>
         <span>{title}</span>
