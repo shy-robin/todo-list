@@ -16,15 +16,14 @@ export interface State {
   itemDetail: ItemDetail;
 }
 
+export type DistributeAction<T> = T extends string
+  ? `set${Capitalize<T>}`
+  : never;
+
+export type ActionType = DistributeAction<keyof State>;
+
 export interface Action extends Partial<State> {
-  type:
-    | "updateCurrentItemId"
-    | "updateCheckedItems"
-    | "updateTotal"
-    | "updatePageSize"
-    | "updateCurPage"
-    | "updateList"
-    | "updateItemDetail";
+  type: ActionType;
 }
 
 export const initialState: State = {
@@ -43,37 +42,37 @@ export const initialState: State = {
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "updateCurrentItemId":
+    case "setCurrentItemId":
       return {
         ...state,
         currentItemId: action.currentItemId || initialState.currentItemId,
       };
-    case "updateCheckedItems":
+    case "setCheckedItems":
       return {
         ...state,
         checkedItems: action.checkedItems || initialState.checkedItems,
       };
-    case "updateTotal":
+    case "setTotal":
       return {
         ...state,
         total: action.total || initialState.total,
       };
-    case "updatePageSize":
+    case "setPageSize":
       return {
         ...state,
         pageSize: action.pageSize || initialState.pageSize,
       };
-    case "updateCurPage":
+    case "setCurPage":
       return {
         ...state,
         curPage: action.curPage || initialState.curPage,
       };
-    case "updateList":
+    case "setList":
       return {
         ...state,
         list: action.list || initialState.list,
       };
-    case "updateItemDetail":
+    case "setItemDetail":
       return {
         ...state,
         itemDetail: action.itemDetail || initialState.itemDetail,

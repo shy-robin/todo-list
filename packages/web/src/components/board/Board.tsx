@@ -1,10 +1,10 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import ListItem from "../list-item/ListItem";
 import ListItemDetail from "../list-item/ListItemDetail";
 import Pagination from "../pagination/Pagination";
 import Popup from "../popup/Popup";
-import ReducerContext from "../../utils/context";
+import useStore from "../../hooks/useStore";
 
 const StyledBoard = styled.div`
   margin-top: 20px;
@@ -12,6 +12,7 @@ const StyledBoard = styled.div`
 `;
 
 const Board = () => {
+  const store = useStore();
   const {
     checkedItems,
     curPage,
@@ -20,70 +21,57 @@ const Board = () => {
     list,
     pageSize,
     total,
-  } = useContext(ReducerContext)!.state;
-  const dispatch = useContext(ReducerContext)!.dispatch;
+  } = store.state;
+  const {
+    setTotal,
+    setCurPage,
+    setCurrentItemId,
+    setList,
+    setPageSize,
+    setItemDetail,
+    setCheckedItems,
+  } = store;
 
   const init = () => {
-    dispatch({
-      type: "updateCurrentItemId",
-      currentItemId: 0,
-    });
-    dispatch({
-      type: "updateCheckedItems",
-      checkedItems: [1, 3],
-    });
-    dispatch({
-      type: "updateTotal",
-      total: 999,
-    });
-    dispatch({
-      type: "updatePageSize",
-      pageSize: 10,
-    });
-    dispatch({
-      type: "updateCurPage",
-      curPage: 2,
-    });
-    dispatch({
-      type: "updateList",
-      list: [
-        {
-          id: 0,
-          index: 1,
-          title: "demo1",
-          total: 342,
-          status: 0,
-        },
-        {
-          id: 1,
-          index: 2,
-          title: "demo1fds",
-          total: 342,
-          status: 0,
-        },
-        {
-          id: 2,
-          index: 3,
-          title: "demo1fds",
-          total: 342,
-          status: 0,
-        },
-        {
-          id: 3,
-          index: 4,
-          title: "demo13",
-          total: 342,
-          status: 1,
-        },
-      ],
-    });
-    dispatch({
-      type: "updateItemDetail",
-      itemDetail: {
-        title: "do homework",
-        description: "xxxxx",
-        createTime: 1676366892452,
+    setTotal(999);
+    setCurPage(2);
+    setCurrentItemId(0);
+    setCheckedItems([1, 3]);
+    setPageSize(10);
+    setList([
+      {
+        id: 0,
+        index: 1,
+        title: "demo1",
+        total: 342,
+        status: 0,
       },
+      {
+        id: 1,
+        index: 2,
+        title: "demo1fds",
+        total: 342,
+        status: 0,
+      },
+      {
+        id: 2,
+        index: 3,
+        title: "demo1fds",
+        total: 342,
+        status: 0,
+      },
+      {
+        id: 3,
+        index: 4,
+        title: "demo13",
+        total: 342,
+        status: 1,
+      },
+    ]);
+    setItemDetail({
+      title: "do homework",
+      description: "xxxxx",
+      createTime: 1676366892452,
     });
   };
 
@@ -94,24 +82,15 @@ const Board = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleListItemClick = (id: number) => {
-    dispatch({
-      type: "updateCurrentItemId",
-      currentItemId: id,
-    });
+    setCurrentItemId(id);
     setIsPopupVisible(true);
   };
 
   const handleListItemDotClick = (id: number) => {
     if (checkedItems.some((item) => item === id)) {
-      dispatch({
-        type: "updateCheckedItems",
-        checkedItems: checkedItems.filter((item) => item !== id),
-      });
+      setCheckedItems(checkedItems.filter((item) => item !== id));
     } else {
-      dispatch({
-        type: "updateCheckedItems",
-        checkedItems: [...checkedItems, id],
-      });
+      setCheckedItems([...checkedItems, id]);
     }
   };
 
@@ -124,25 +103,13 @@ const Board = () => {
   };
 
   const handlePagePrev = (curPage: number, pageSize: number) => {
-    dispatch({
-      type: "updateCurPage",
-      curPage,
-    });
-    dispatch({
-      type: "updatePageSize",
-      pageSize,
-    });
+    setCurPage(curPage);
+    setPageSize(pageSize);
   };
 
   const handlePageNext = (curPage: number, pageSize: number) => {
-    dispatch({
-      type: "updateCurPage",
-      curPage,
-    });
-    dispatch({
-      type: "updatePageSize",
-      pageSize,
-    });
+    setCurPage(curPage);
+    setPageSize(pageSize);
   };
 
   return (
