@@ -5,7 +5,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev:web": "pnpm -C packages/web run start"
+    "dev:web": "pnpm -C packages/web run start",
+    "dev:server": "pnpm -C packages/server run start"
   },
   "keywords": [],
   "author": "",
