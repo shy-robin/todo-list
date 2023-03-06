@@ -1,10 +1,19 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import ListItem from "../list-item/ListItem";
 import ListItemDetail from "../list-item/ListItemDetail";
 import Pagination from "../pagination/Pagination";
 import Popup from "../popup/Popup";
 import useStore from "../../hooks/useStore";
+import useKeymap from "../../hooks/useKeymap";
+import {
+  handlePageNext,
+  handlePagePrev,
+  handleCheckToggle,
+  handleItemDetailOpen,
+  handleItemDetailCancel,
+  handleItemDetailSave,
+} from "../../utils/handlers";
 
 const StyledBoard = styled.div`
   margin-top: 20px;
@@ -21,6 +30,7 @@ const Board = () => {
     list,
     pageSize,
     total,
+    isItemDetailVisible,
   } = store.state;
   const {
     setTotal,
@@ -79,38 +89,7 @@ const Board = () => {
     init();
   }, []);
 
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-
-  const handleListItemClick = (id: number) => {
-    setCurrentItemId(id);
-    setIsPopupVisible(true);
-  };
-
-  const handleListItemDotClick = (id: number) => {
-    if (checkedItems.some((item) => item === id)) {
-      setCheckedItems(checkedItems.filter((item) => item !== id));
-    } else {
-      setCheckedItems([...checkedItems, id]);
-    }
-  };
-
-  const handleCancel = () => {
-    setIsPopupVisible(false);
-  };
-
-  const handleSave = () => {
-    setIsPopupVisible(false);
-  };
-
-  const handlePagePrev = (curPage: number, pageSize: number) => {
-    setCurPage(curPage);
-    setPageSize(pageSize);
-  };
-
-  const handlePageNext = (curPage: number, pageSize: number) => {
-    setCurPage(curPage);
-    setPageSize(pageSize);
-  };
+  useKeymap(store);
 
   return (
     <StyledBoard>
@@ -120,8 +99,8 @@ const Board = () => {
             {...item}
             isActive={currentItemId === item.id}
             isChecked={checkedItems.some((i) => i === item.id)}
-            onListItemClick={handleListItemClick}
-            onListItemDotClick={handleListItemDotClick}
+            onListItemClick={(id) => handleItemDetailOpen(store, id)}
+            onListItemDotClick={(id) => handleCheckToggle(store, id)}
             key={item.id}
           />
         );
@@ -130,16 +109,16 @@ const Board = () => {
         total={total}
         pageSize={pageSize}
         curPage={curPage}
-        onPrev={handlePagePrev}
-        onNext={handlePageNext}
+        onPrev={() => handlePagePrev(store)}
+        onNext={() => handlePageNext(store)}
         style={{ marginTop: "30px" }}
       ></Pagination>
-      {isPopupVisible && (
+      {isItemDetailVisible && (
         <Popup>
           <ListItemDetail
             {...itemDetail}
-            onCancel={handleCancel}
-            onSave={handleSave}
+            onCancel={() => handleItemDetailCancel(store)}
+            onSave={() => handleItemDetailSave(store)}
           />
         </Popup>
       )}

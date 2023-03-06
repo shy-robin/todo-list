@@ -13,6 +13,7 @@ export interface State {
   pageSize: number;
   curPage: number;
   list: ListItemProps[];
+  isItemDetailVisible: boolean;
   itemDetail: ItemDetail;
 }
 
@@ -33,6 +34,7 @@ export const initialState: State = {
   pageSize: 0,
   curPage: 0,
   list: [],
+  isItemDetailVisible: false,
   itemDetail: {
     title: "",
     description: "",
@@ -76,6 +78,12 @@ export const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         itemDetail: action.itemDetail || initialState.itemDetail,
+      };
+    case "setIsItemDetailVisible":
+      return {
+        ...state,
+        isItemDetailVisible:
+          action.isItemDetailVisible || initialState.isItemDetailVisible,
       };
     default:
       throw new Error(`No such action type: ${action.type}`);

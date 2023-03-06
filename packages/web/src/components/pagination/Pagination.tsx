@@ -30,8 +30,8 @@ interface PaginationProps {
   total: number;
   pageSize: number;
   curPage: number;
-  onPrev: (curPage: number, pageSize: number) => void;
-  onNext: (curPage: number, pageSize: number) => void;
+  onPrev: () => void;
+  onNext: () => void;
   style?: { [key: string]: unknown };
 }
 
@@ -45,19 +45,13 @@ const Pagination = (props: PaginationProps) => {
 
   return (
     <StyledPagination style={style}>
-      <PageDirection
-        onClick={() => onPrev(curPage - 1, pageSize)}
-        isDisabled={curPage === 1}
-      >
+      <PageDirection onClick={onPrev} isDisabled={curPage === 1}>
         {prevPageLabel}
       </PageDirection>
       <PageInfo>
         {curPage}/{totalPage}
       </PageInfo>
-      <PageDirection
-        onClick={() => onNext(curPage + 1, pageSize)}
-        isDisabled={curPage === totalPage}
-      >
+      <PageDirection onClick={onNext} isDisabled={curPage === totalPage}>
         {nextPageLabel}
       </PageDirection>
     </StyledPagination>

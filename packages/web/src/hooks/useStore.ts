@@ -2,11 +2,11 @@ import { useContext } from "react";
 import ReducerContext from "../utils/context";
 import { State, Action, ActionType, DistributeAction } from "../reducers/index";
 
-type SetState = {
+export type SetState = {
   [key in keyof State as DistributeAction<key>]: (newVal: State[key]) => void;
 };
 
-type Store = SetState & {
+export type Store = SetState & {
   state: State;
   dispatch: React.Dispatch<Action>;
 };
