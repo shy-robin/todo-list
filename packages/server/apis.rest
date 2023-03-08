@@ -1,0 +1,17 @@
+--
+http://localhost:8880
+
+// query items
+GET /items
+--
+
+--
+// query items by filtering
+GET /items?page=2&pageSize=20&sortby=name&order=asc
+--
+
+--
+https://jsonplaceholder.typicode.com/comments
+
+GET /
+--
