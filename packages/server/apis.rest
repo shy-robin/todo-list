@@ -1,17 +1,21 @@
---
 http://localhost:8880
 
 // query items
 GET /items
---
 
 --
 // query items by filtering
 GET /items?page=2&pageSize=20&sortby=name&order=asc
---
 
 --
-https://jsonplaceholder.typicode.com/comments
-
-GET /
---
+// create items
+POST /items
+{
+  "title": "Homework",
+  "description": "just a demo",
+  "content": "Do homework, xxx",
+  "tags": [1, 2, 3],
+  "status": 0,
+  "priority": 1,
+  "authorId": 11
+}

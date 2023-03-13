@@ -6,17 +6,21 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --exec ts-node src/app.ts"
+    "start": "nodemon --exec ts-node src/index.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@koa/router": "^12.0.0",
-    "koa": "^2.14.1"
+    "@typegoose/typegoose": "^10.3.0",
+    "koa": "^2.14.1",
+    "koa-bodyparser": "^4.3.0",
+    "mongoose": "^7.0.1"
   },
   "devDependencies": {
     "@types/koa": "^2.13.5",
+    "@types/koa-bodyparser": "^4.3.10",
     "@types/koa__router": "^12.0.0",
     "@types/node": "^16.18.12",
     "@typescript-eslint/eslint-plugin": "^5.54.1",

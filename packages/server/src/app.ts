@@ -1,14 +1,42 @@
 import Koa from 'koa'
-import { PORT } from './config/constant'
-import Items from './routes/items'
+import { connect } from 'mongoose'
+import Items from './routes/item'
+import errorHandler from './middlewares/error'
+import bodyParser from 'koa-bodyparser'
 
-const app = new Koa()
+export class App {
+  public app
 
-// allowedMethods: set ctx.status and add Allow to response header automatically
-app.use(Items.routes()).use(Items.allowedMethods())
+  constructor() {
+    this.app = new Koa()
+    this.handleError()
+    this.mountMiddlewares()
+    this.connectDB()
+    this.mountRoutes()
+  }
 
-app.listen(PORT, () => {
-  console.log(`http://localhost:${PORT} is running...`)
-})
+  private handleError() {
+    this.app.use(errorHandler)
+  }
 
-export default app
+  private mountMiddlewares() {
+    // 解析请求体并将其放至 ctx.request.body 中
+    this.app.use(bodyParser())
+  }
+
+  private async connectDB() {
+    try {
+      await connect('mongodb://127.0.0.1:27017/todo-list')
+      console.log('connect mongodb successfully!')
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  private mountRoutes() {
+    // allowedMethods: set ctx.status and add Allow to response header automatically
+    this.app.use(Items.routes()).use(Items.allowedMethods())
+  }
+}
+
+export default new App().app
