@@ -1,11 +1,15 @@
 http://localhost:8880
 
+--
+// end global scope
+
+--
 // query items
 GET /items
 
 --
 // query items by filtering
-GET /items?page=2&pageSize=20&sortby=name&order=asc
+GET /items?page=2&pageSize=2&sortby=priority&order=asc&test=fds
 
 --
 // create items
@@ -16,6 +20,6 @@ POST /items
   "content": "Do homework, xxx",
   "tags": [1, 2, 3],
   "status": 0,
-  "priority": 1,
-  "authorId": 11
+  "priority": 3,
+  "authorId": 123
 }
