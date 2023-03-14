@@ -23,3 +23,12 @@ POST /items
   "priority": 3,
   "authorId": 123
 }
+
+--
+// register
+POST /users
+{
+  "username": "Johnhello",
+  "password": "test.123",
+  "email": "test@163.com"
+}

@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import { connect } from 'mongoose'
-import Items from './routes/item'
+import Item from './routes/item'
+import User from './routes/user'
 import errorHandler from './middlewares/error'
 import bodyParser from 'koa-bodyparser'
 
@@ -35,7 +36,8 @@ export class App {
 
   private mountRoutes() {
     // allowedMethods: set ctx.status and add Allow to response header automatically
-    this.app.use(Items.routes()).use(Items.allowedMethods())
+    this.app.use(Item.routes()).use(Item.allowedMethods())
+    this.app.use(User.routes()).use(User.allowedMethods())
   }
 }
 
