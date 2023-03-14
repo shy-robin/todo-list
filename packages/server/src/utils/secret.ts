@@ -7,7 +7,5 @@ export const encrypt = (value: string) => {
 }
 
 export const decrypt = (value: string) => {
-  return JSON.parse(
-    CryptoJs.AES.decrypt(value, SECRET_KEY).toString(CryptoJs.enc.Utf8)
-  )
+  return CryptoJs.AES.decrypt(value, SECRET_KEY).toString(CryptoJs.enc.Utf8)
 }

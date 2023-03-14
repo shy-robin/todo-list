@@ -2,6 +2,7 @@ import Koa from 'koa'
 import { connect } from 'mongoose'
 import Item from './routes/item'
 import User from './routes/user'
+import Session from './routes/session'
 import errorHandler from './middlewares/error'
 import bodyParser from 'koa-bodyparser'
 
@@ -38,6 +39,7 @@ export class App {
     // allowedMethods: set ctx.status and add Allow to response header automatically
     this.app.use(Item.routes()).use(Item.allowedMethods())
     this.app.use(User.routes()).use(User.allowedMethods())
+    this.app.use(Session.routes()).use(Session.allowedMethods())
   }
 }
 

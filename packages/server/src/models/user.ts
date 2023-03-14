@@ -1,5 +1,5 @@
 import { prop, modelOptions, getModelForClass, pre } from '@typegoose/typegoose'
-import { encrypt, decrypt } from '../utils/secret'
+import { encrypt } from '../utils/secret'
 
 @modelOptions({
   schemaOptions: {

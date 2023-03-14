@@ -32,3 +32,11 @@ POST /users
   "password": "jack.password.123",
   "email": "test@163.com"
 }
+
+--
+// login
+POST /sessions
+{
+  "username": "jack2",
+  "password": "jack.password.123"
+}
