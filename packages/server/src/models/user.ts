@@ -1,10 +1,14 @@
-import { prop, modelOptions, getModelForClass } from '@typegoose/typegoose'
+import { prop, modelOptions, getModelForClass, pre } from '@typegoose/typegoose'
+import { encrypt, decrypt } from '../utils/secret'
 
 @modelOptions({
   schemaOptions: {
     collection: 'users',
     timestamps: true,
   },
+})
+@pre<User>('save', function () {
+  this.password = encrypt(this.password)
 })
 class User {
   @prop({
