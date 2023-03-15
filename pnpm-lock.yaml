@@ -7,6 +7,7 @@ importers:
       '@koa/router': ^12.0.0
       '@typegoose/typegoose': ^10.3.0
       '@types/crypto-js': ^4.1.1
+      '@types/jsonwebtoken': ^9.0.1
       '@types/koa': ^2.13.5
       '@types/koa-bodyparser': ^4.3.10
       '@types/koa__router': ^12.0.0
@@ -16,8 +17,10 @@ importers:
       crypto-js: ^4.1.1
       eslint: ^8.35.0
       eslint-config-prettier: ^8.7.0
+      jsonwebtoken: ^9.0.0
       koa: ^2.14.1
       koa-bodyparser: ^4.3.0
+      koa-jwt: ^4.0.4
       mongoose: ^7.0.1
       nodemon: ^2.0.21
       prettier: ^2.8.4
@@ -27,11 +30,14 @@ importers:
       '@koa/router': 12.0.0
       '@typegoose/typegoose': 10.3.0_mongoose@7.0.1
       crypto-js: 4.1.1
+      jsonwebtoken: 9.0.0
       koa: 2.14.1
       koa-bodyparser: 4.3.0
+      koa-jwt: 4.0.4
       mongoose: 7.0.1
     devDependencies:
       '@types/crypto-js': 4.1.1
+      '@types/jsonwebtoken': 9.0.1
       '@types/koa': 2.13.5
       '@types/koa-bodyparser': 4.3.10
       '@types/koa__router': 12.0.0
@@ -2557,6 +2563,12 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: false
 
+  /@types/jsonwebtoken/9.0.1:
+    resolution: {integrity: sha512-c5ltxazpWabia/4UzhIoaDcIza4KViOQhdbjRlfcIGVnsE3c3brkz9Z+F/EeJIECOQP7W7US2hNE930cWWkPiw==}
+    dependencies:
+      '@types/node': 16.18.12
+    dev: true
+
   /@types/keygrip/1.0.2:
     resolution: {integrity: sha512-GJhpTepz2udxGexqos8wgaBx4I/zWIDPh/KOGEwAqtuGDkOUJu5eFvwmdBX4AmB8Odsr+9pHCQqiAqDL/yKMKw==}
     dev: true
@@ -3192,6 +3204,14 @@ packages:
       - supports-color
     dev: false
 
+  /aggregate-error/3.1.0:
+    resolution: {integrity: sha512-4I7Td01quW/RpocfNayFdFVk1qSuoh0E7JrbRJ16nH01HhKFQ88INq9Sd+nd72zqRySlr9BmDA8xlEJ6vJMrYA==}
+    engines: {node: '>=8'}
+    dependencies:
+      clean-stack: 2.2.0
+      indent-string: 4.0.0
+    dev: false
+
   /ajv-formats/2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
     peerDependenciesMeta:
@@ -3714,6 +3734,10 @@ packages:
     engines: {node: '>=14.20.1'}
     dev: false
 
+  /buffer-equal-constant-time/1.0.1:
+    resolution: {integrity: sha512-zRpUiDwd/xk6ADqPMATG8vc9VPrkck7T07OIx0gnjmJAnHnTVXNQG3vfvWNuiZIkwu9KrKdA1iJKfsfTVxE6NA==}
+    dev: false
+
   /buffer-from/1.1.2:
     resolution: {integrity: sha512-E+XQCRwSbaaiChtv6k6Dwgc+bx+Bs6vuKJHHl5kox/BaKbhiXzqQOwK4cO22yElGp2OCmjwVhT3HmxgyPGnJfQ==}
     dev: false
@@ -3867,6 +3891,11 @@ packages:
     engines: {node: '>= 10.0'}
     dependencies:
       source-map: 0.6.1
+    dev: false
+
+  /clean-stack/2.2.0:
+    resolution: {integrity: sha512-4diC9HaTE+KRAMWhDhrGOECgWZxoevMc5TlkObMqNSsVU62PYzXZ/SMTjzyGAFF1YusgxGcSWTEXBhp0CPwQ1A==}
+    engines: {node: '>=6'}
     dev: false
 
   /cliui/7.0.4:
@@ -4665,6 +4694,12 @@ packages:
 
   /duplexer/0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
+    dev: false
+
+  /ecdsa-sig-formatter/1.0.11:
+    resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
+    dependencies:
+      safe-buffer: 5.2.1
     dev: false
 
   /ee-first/1.1.1:
@@ -7043,12 +7078,37 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
+  /jsonwebtoken/9.0.0:
+    resolution: {integrity: sha512-tuGfYXxkQGDPnLJ7SibiQgVgeDgfbPq2k2ICcbgqW8WxWLBAxKQM/ZCu/IT8SOSwmaYl4dpTFCW5xZv7YbbWUw==}
+    engines: {node: '>=12', npm: '>=6'}
+    dependencies:
+      jws: 3.2.2
+      lodash: 4.17.21
+      ms: 2.1.3
+      semver: 7.3.8
+    dev: false
+
   /jsx-ast-utils/3.3.3:
     resolution: {integrity: sha512-fYQHZTZ8jSfmWZ0iyzfwiU4WDX4HpHbMCZ3gPlWYiCl3BoeOTsqKBqnTVfH2rYT7eP5c3sVbeSPHnnJOaTrWiw==}
     engines: {node: '>=4.0'}
     dependencies:
       array-includes: 3.1.6
       object.assign: 4.1.4
+    dev: false
+
+  /jwa/1.4.1:
+    resolution: {integrity: sha512-qiLX/xhEEFKUAJ6FiBMbes3w9ATzyk5W7Hvzpa/SLYdxNtng+gcurvrI7TbACjIXlsJyr05/S1oUhZrc63evQA==}
+    dependencies:
+      buffer-equal-constant-time: 1.0.1
+      ecdsa-sig-formatter: 1.0.11
+      safe-buffer: 5.2.1
+    dev: false
+
+  /jws/3.2.2:
+    resolution: {integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==}
+    dependencies:
+      jwa: 1.4.1
+      safe-buffer: 5.2.1
     dev: false
 
   /kareem/2.5.1:
@@ -7096,6 +7156,19 @@ packages:
     dependencies:
       co: 4.6.0
       koa-compose: 4.1.0
+    dev: false
+
+  /koa-jwt/4.0.4:
+    resolution: {integrity: sha512-Tid9BQfpVtUG/8YZV38a+hDKll0pfVhfl7A/2cNaYThS1cxMFXylZzfARqHQqvNhHy9qM+qkxd4/z6EaIV4SAQ==}
+    engines: {node: '>= 8'}
+    dependencies:
+      jsonwebtoken: 9.0.0
+      koa-unless: 1.0.7
+      p-any: 2.1.0
+    dev: false
+
+  /koa-unless/1.0.7:
+    resolution: {integrity: sha512-NKiz+nk4KxSJFskiJMuJvxeA41Lcnx3d8Zy+8QETgifm4ab4aOeGD3RgR6bIz0FGNWwo3Fz0DtnK77mEIqHWxA==}
     dev: false
 
   /koa/2.14.1:
@@ -7729,6 +7802,20 @@ packages:
       type-check: 0.4.0
       word-wrap: 1.2.3
 
+  /p-any/2.1.0:
+    resolution: {integrity: sha512-JAERcaMBLYKMq+voYw36+x5Dgh47+/o7yuv2oQYuSSUml4YeqJEFznBrY2UeEkoSHqBua6hz518n/PsowTYLLg==}
+    engines: {node: '>=8'}
+    dependencies:
+      p-cancelable: 2.1.1
+      p-some: 4.1.0
+      type-fest: 0.3.1
+    dev: false
+
+  /p-cancelable/2.1.1:
+    resolution: {integrity: sha512-BZOr3nRQHOntUjTrH8+Lh54smKHoHyur8We1V8DSMVrl5A2malOOwuJRnKRDjSnkoeBh4at6BwEnb5I7Jl31wg==}
+    engines: {node: '>=8'}
+    dev: false
+
   /p-limit/2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
     engines: {node: '>=6'}
@@ -7768,6 +7855,14 @@ packages:
     dependencies:
       '@types/retry': 0.12.0
       retry: 0.13.1
+    dev: false
+
+  /p-some/4.1.0:
+    resolution: {integrity: sha512-MF/HIbq6GeBqTrTIl5OJubzkGU+qfFhAFi0gnTAK6rgEIJIknEiABHOTtQu4e6JiXjIwuMPMUFQzyHh5QjCl1g==}
+    engines: {node: '>=8'}
+    dependencies:
+      aggregate-error: 3.1.0
+      p-cancelable: 2.1.1
     dev: false
 
   /p-try/2.2.0:
@@ -10150,6 +10245,11 @@ packages:
   /type-fest/0.21.3:
     resolution: {integrity: sha512-t0rzBq87m3fVcduHDUFhKmyyX+9eo6WQjZvf51Ea/M0Q7+T374Jp1aUiyUl0GKxp8M/OETVHSDvmkyPgvX+X2w==}
     engines: {node: '>=10'}
+    dev: false
+
+  /type-fest/0.3.1:
+    resolution: {integrity: sha512-cUGJnCdr4STbePCgqNFbpVNCepa+kAVohJs1sLhxzdH+gnEoOd8VhbYa7pD3zZYGiURWM2xzEII3fQcRizDkYQ==}
+    engines: {node: '>=6'}
     dev: false
 
   /type-is/1.6.18:

@@ -8,6 +8,7 @@ http://localhost:8880
 GET /items
 
 --
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDEwMmFiNTllMzY2N2Q2ZGQ2OWVhZDgiLCJpYXQiOjE2Nzg4NjUwODAsImV4cCI6MTY3ODg2NTE0MH0.Ra-JF9DXQRqtGaT_A8jm1urfg6f8LnOq5ndseJIdIbE
 // query items by filtering
 GET /items?page=2&pageSize=2&sortby=priority&order=asc&test=fds
 

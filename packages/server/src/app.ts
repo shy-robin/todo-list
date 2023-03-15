@@ -4,6 +4,7 @@ import Item from './routes/item'
 import User from './routes/user'
 import Session from './routes/session'
 import errorHandler from './middlewares/error'
+import jwt from './middlewares/jwt'
 import bodyParser from 'koa-bodyparser'
 
 export class App {
@@ -18,6 +19,8 @@ export class App {
   }
 
   private handleError() {
+    // 处理错误的中间件
+    // 在最开始加载该中间件，一旦发生错误，经过洋葱模型回溯到这个位置
     this.app.use(errorHandler)
   }
 
@@ -37,9 +40,12 @@ export class App {
 
   private mountRoutes() {
     // allowedMethods: set ctx.status and add Allow to response header automatically
-    this.app.use(Item.routes()).use(Item.allowedMethods())
+    // unprotected endpoint
     this.app.use(User.routes()).use(User.allowedMethods())
     this.app.use(Session.routes()).use(Session.allowedMethods())
+    // protect endpoint using jwt middleware
+    this.app.use(jwt)
+    this.app.use(Item.routes()).use(Item.allowedMethods())
   }
 }
 

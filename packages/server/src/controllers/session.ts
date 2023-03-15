@@ -2,6 +2,7 @@ import { Context } from 'koa'
 import SessionService from '../services/session'
 import { RequestBody } from '../@types/request'
 import { decrypt } from '../utils/secret'
+import { genToken } from '../utils/jwt'
 
 export default class SessionController {
   public static async createSession(ctx: Context) {
@@ -22,8 +23,11 @@ export default class SessionController {
       })
     }
 
+    const token = genToken(data.id)
+
     ctx.body = {
       message: 'ok',
+      token,
     }
   }
 }

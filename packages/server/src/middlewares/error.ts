@@ -37,6 +37,13 @@ export default async (ctx: Context, next: Next) => {
       })
     }
 
+    if (name === 'UnauthorizedError') {
+      ctx.status = 401
+      return (ctx.body = {
+        err: '用户无权限',
+      })
+    }
+
     ctx.status = 500
     return (ctx.body = {
       err: '未知错误',

@@ -1,11 +1,12 @@
 import CryptoJs from 'crypto-js'
-
-const SECRET_KEY = 'TODO_LIST_SECRET_KEY@ShyRobin'
+import { ENCRYPT_SECRET_KEY } from '../config/secret'
 
 export const encrypt = (value: string) => {
-  return CryptoJs.AES.encrypt(value, SECRET_KEY).toString()
+  return CryptoJs.AES.encrypt(value, ENCRYPT_SECRET_KEY).toString()
 }
 
 export const decrypt = (value: string) => {
-  return CryptoJs.AES.decrypt(value, SECRET_KEY).toString(CryptoJs.enc.Utf8)
+  return CryptoJs.AES.decrypt(value, ENCRYPT_SECRET_KEY).toString(
+    CryptoJs.enc.Utf8
+  )
 }
