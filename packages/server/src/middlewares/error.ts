@@ -44,6 +44,20 @@ export default async (ctx: Context, next: Next) => {
       })
     }
 
+    if (name === 'NoUser') {
+      ctx.status = 400
+      return (ctx.body = {
+        err: '用户名不存在',
+      })
+    }
+
+    if (name === 'WrongPassword') {
+      ctx.status = 400
+      return (ctx.body = {
+        err: '密码错误',
+      })
+    }
+
     ctx.status = 500
     return (ctx.body = {
       err: '未知错误',

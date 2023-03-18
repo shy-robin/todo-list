@@ -29,7 +29,7 @@ POST /items
 // register
 POST /users
 {
-  "username": "jack2",
+  "username": "jack3",
   "password": "jack.password.123",
   "email": "test@163.com"
 }
