@@ -1,17 +1,6 @@
 import { prop, getModelForClass, modelOptions } from '@typegoose/typegoose'
-
-export enum ItemStatus {
-  UNDO = 0,
-  DOING = 1,
-  DONE = 2,
-}
-
-export enum ItemPriority {
-  P0 = 0,
-  P1 = 1,
-  P2 = 2,
-  P3 = 3,
-}
+import { Types } from 'mongoose'
+import { ItemStatus, ItemPriority } from '../@types/item'
 
 @modelOptions({
   schemaOptions: {
@@ -19,7 +8,7 @@ export enum ItemPriority {
     timestamps: true,
   },
 })
-class Item {
+export class Item {
   @prop({
     required: true,
   })
@@ -51,8 +40,9 @@ class Item {
 
   @prop({
     required: true,
+    index: true,
   })
-  public authorId!: number
+  public authorId!: Types.ObjectId
 }
 
 export default getModelForClass(Item)

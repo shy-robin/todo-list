@@ -1,4 +1,5 @@
 http://localhost:8880
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDEwMmFiNTllMzY2N2Q2ZGQ2OWVhZDgiLCJpYXQiOjE2NzkyMDQ2NTgsImV4cCI6MTY3OTgwOTQ1OH0.YcTXZ5bXQuY1ZnENTiFL_gtu8udnpXAHIWypkQGCIsg
 
 --
 // end global scope
@@ -8,20 +9,20 @@ http://localhost:8880
 GET /items
 
 --
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NDEwMmFiNTllMzY2N2Q2ZGQ2OWVhZDgiLCJpYXQiOjE2Nzg4NjUwODAsImV4cCI6MTY3ODg2NTE0MH0.Ra-JF9DXQRqtGaT_A8jm1urfg6f8LnOq5ndseJIdIbE
 // query items by filtering
-GET /items?page=2&pageSize=2&sortby=priority&order=asc&test=fds
+// query items by filtering
+GET /items?page=1&pageSize=4&sortby=priority&order=desc&test=fds
 
 --
 // create items
 POST /items
 {
-  "title": "Homework",
+  "title": "demo1111",
   "description": "just a demo",
   "content": "Do homework, xxx",
   "tags": [1, 2, 3],
-  "status": 0,
-  "priority": 3,
+  "status": 2,
+  "priority": 1,
   "authorId": 123
 }
 
@@ -29,8 +30,8 @@ POST /items
 // register
 POST /users
 {
-  "username": "jack3",
-  "password": "jack.password.123",
+  "username": "jack4",
+  "password": "jack4.password.123",
   "email": "test@163.com"
 }
 

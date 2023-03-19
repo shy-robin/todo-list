@@ -1,17 +1,20 @@
 import { Context } from 'koa'
 import ItemService from '../services/item'
-import { RequestBody, Query } from '../@types/request'
+import { Query } from '../@types/request'
+import { CreateItemRequest } from '../@types/item'
 
 export default class ItemController {
   public static async getItems(ctx: Context) {
-    const data = await ItemService.getItems(ctx.query as Query)
+    const { userId } = ctx.state.jwtData
+    const data = await ItemService.getItems(userId, ctx.query as Query)
     ctx.body = {
       list: data,
     }
   }
 
   public static async createItem(ctx: Context) {
-    await ItemService.createItem(ctx.request.body as RequestBody)
+    const { userId } = ctx.state.jwtData
+    await ItemService.createItem(userId, ctx.request.body as CreateItemRequest)
     ctx.body = {
       message: 'ok',
     }
