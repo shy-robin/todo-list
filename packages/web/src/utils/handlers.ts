@@ -34,6 +34,11 @@ export const handlePageNext = (store: Store) => {
   setCurPage(curPage + 1);
 };
 
+export const handlePageChange = (store: Store, page: number) => {
+  const { setCurPage } = store;
+  setCurPage(page);
+};
+
 export const handleCheckToggle = (store: Store, checkId?: number) => {
   const id = checkId ?? store.state.currentItemId;
   const { checkedItems } = store.state;

@@ -1,19 +1,16 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import ListItem from "../list-item/ListItem";
-import ListItemDetail from "../list-item/ListItemDetail";
-import Pagination from "../pagination/Pagination";
-import Popup from "../popup/Popup";
 import useStore from "../../hooks/useStore";
 import useKeymap from "../../hooks/useKeymap";
 import {
-  handlePageNext,
-  handlePagePrev,
+  handlePageChange,
   handleCheckToggle,
   handleItemDetailOpen,
   handleItemDetailCancel,
   handleItemDetailSave,
 } from "../../utils/handlers";
+import { Pagination, Modal, Form, Input, Button } from "antd";
 
 const StyledBoard = styled.div`
   margin-top: 20px;
@@ -89,6 +86,17 @@ const Board = () => {
     init();
   }, []);
 
+  const formatTime = (timestamp: number) => {
+    const d = new Date(timestamp);
+    const year = d.getFullYear();
+    const month = d.getMonth() + 1;
+    const date = d.getDate();
+    const hour = d.getHours();
+    const min = d.getMinutes();
+    const sec = d.getSeconds();
+    return `${year}-${month}-${date} ${hour}:${min}:${sec}`;
+  };
+
   useKeymap(store);
 
   return (
@@ -106,22 +114,44 @@ const Board = () => {
         );
       })}
       <Pagination
+        simple
         total={total}
         pageSize={pageSize}
-        curPage={curPage}
-        onPrev={() => handlePagePrev(store)}
-        onNext={() => handlePageNext(store)}
+        current={curPage}
+        onChange={(page) => handlePageChange(store, page)}
         style={{ marginTop: "30px" }}
       ></Pagination>
-      {isItemDetailVisible && (
-        <Popup>
-          <ListItemDetail
-            {...itemDetail}
-            onCancel={() => handleItemDetailCancel(store)}
-            onSave={() => handleItemDetailSave(store)}
-          />
-        </Popup>
-      )}
+      <Modal
+        title="详情"
+        open={isItemDetailVisible}
+        onOk={() => handleItemDetailSave(store)}
+        onCancel={() => handleItemDetailCancel(store)}
+        footer={[
+          <Button key="cancel" onClick={() => handleItemDetailCancel(store)}>
+            取消
+          </Button>,
+          <Button
+            key="save"
+            type="primary"
+            ghost
+            onClick={() => handleItemDetailSave(store)}
+          >
+            保存
+          </Button>,
+        ]}
+      >
+        <Form>
+          <Form.Item label="标题" labelCol={{ span: 4 }}>
+            <Input value={itemDetail.title} />
+          </Form.Item>
+          <Form.Item label="描述" labelCol={{ span: 4 }}>
+            <Input.TextArea value={itemDetail.description} />
+          </Form.Item>
+          <Form.Item label="创建时间" labelCol={{ span: 4 }}>
+            {formatTime(itemDetail.createTime)}
+          </Form.Item>
+        </Form>
+      </Modal>
     </StyledBoard>
   );
 };
